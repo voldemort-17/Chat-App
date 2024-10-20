@@ -27,7 +27,7 @@ const ProfileInfo = () => {
 
             if(response.status === 200){
                 navigate("/auth");
-                setUserInfo(null);
+                setUserInfo(undefined);
             }
         } catch (error) {
             console.log(error);

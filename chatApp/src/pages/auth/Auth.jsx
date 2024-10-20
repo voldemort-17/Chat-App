@@ -96,13 +96,13 @@ const Auth = () => {
                 <TabsContent className="flex flex-col gap-5 mt-5" value="login">
                   <Input placeholder="Email" type="email" value={email} className="rounded-full" onChange={(e) => setEmail(e.target.value)} />
                   <Input placeholder="Password" type="password" value={password} className="rounded-full" onChange={(e) => setPassword(e.target.value)} />
-                  <Button className="rounded-full" onClick={handleLogin}>Login</Button>
+                  <Button className="rounded-full bg-indigo-950 text-white" onClick={handleLogin}>Login</Button>
                 </TabsContent>
                 <TabsContent className="flex flex-col gap-5" value="signup">
                   <Input placeholder="Email" type="email" value={email} className="rounded-full " onChange={(e) => setEmail(e.target.value)} />
                   <Input placeholder="Password" type="password" value={password} className="rounded-full" onChange={(e) => setPassword(e.target.value)} />
                   <Input placeholder="Confirm Password" type="password" value={confirmPassword} className="rounded-full" onChange={(e) => setConfirmPassword(e.target.value)} />
-                  <Button className="rounded-full" onClick={handleSignUp}>Sign Up</Button>
+                  <Button className="rounded-full bg-indigo-950 text-white" onClick={handleSignUp}>Sign Up</Button>
                 </TabsContent>
               </Tabs>
             </div>

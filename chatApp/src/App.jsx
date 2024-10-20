@@ -21,56 +21,60 @@ const AuthRoute = ({ children }) => {
 }
 
 function App() {
-  const { userInfo, setUserInfo } = useAppStore()
-  const [loading, setLoading] = useState(true)
+  const { userInfo, setUserInfo } = useAppStore();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
+
     const getUserData = async () => {
       try {
-        const response = await apiClient.get(GET_USER_INFO, { withCredentials: true });
-        // console.log({ response });
-        if(response.status === 200 && response.data.id) {
-          setUserInfo(response.data);
+        if(userInfo === undefined){
+          return ;
         }
         else{
-          setUserInfo(undefined);
+          const response = await apiClient.get(GET_USER_INFO, { withCredentials: true, signal });
+          if (response.status === 200 && response.data.id) {
+            setUserInfo(response.data);
+          } else {
+            setUserInfo(undefined);
+          }
         }
       } catch (error) {
-        setUserInfo(undefined);
+        if (error.name !== 'AbortError') {
+          setUserInfo(undefined);
+        }
       } finally {
         setLoading(false);
       }
-    }
+    };
+
     if (!userInfo) {
       getUserData();
-    }
-    else {
+    } else {
       setLoading(false);
     }
-  }, [setUserInfo, userInfo])
+
+    return () => {
+      controller.abort();
+    };
+  }, [userInfo, setUserInfo]);
 
   if (loading) {
-    return <div className="">Loading...</div>
+    return <div>Loading...</div>;
   }
 
   return (
-    <>
-      <BrowserRouter>
-        <Routes>
-          <Route path='/auth' element={<AuthRoute>
-            <Auth />
-          </AuthRoute>} />
-          <Route path='/chat' element={<PrivateRoute>
-            <Chat />
-          </PrivateRoute>} />
-          <Route path='/profile' element={<PrivateRoute>
-            <Profile />
-          </PrivateRoute>} />
-          <Route path='*' element={<Navigate to="/auth" />} />
-        </Routes>
-      </BrowserRouter>
-    </>
-  )
+    <BrowserRouter>
+      <Routes>
+        <Route path='/auth' element={<AuthRoute><Auth /></AuthRoute>} />
+        <Route path='/chat' element={<PrivateRoute><Chat /></PrivateRoute>} />
+        <Route path='/profile' element={<PrivateRoute><Profile /></PrivateRoute>} />
+        <Route path='*' element={<Navigate to="/auth" />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App
