@@ -23,3 +23,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+
+# PORT = 5000
+# JWT_KEY = "jjhdsldksdlksdkxsdk2372"
+# ORIGIN = "http://localhost:5173"
+# DATABASE_URL = "mongodb+srv://voldemort:yashsharma@cluster0.fhynn.mongodb.net/chat-app?retryWrites=true&w=majority&appName=Cluster0"
