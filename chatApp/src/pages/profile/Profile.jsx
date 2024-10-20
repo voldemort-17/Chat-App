@@ -142,7 +142,7 @@ const Profile = () => {
                   onChange={(e) => setFirstName(e.target.value)} value={firstName} className='rounded-lg p-6 bg-[#2c2e3b] border-none' />
               </div>
               <div className="w-full">
-                <input type="text" placeholder='Email'
+                <input type="text" placeholder='Last Name'
                   onChange={(e) => setLastName(e.target.value)}
                   value={lastName} className='rounded-lg p-6 bg-[#2c2e3b] border-none' />
               </div>
